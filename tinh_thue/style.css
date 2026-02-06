@@ -1,0 +1,427 @@
+:root {
+    --primary-color: #E53935;
+    --primary-hover: #D32F2F;
+    --bg-color: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --text-primary: #212121;
+    --text-secondary: #757575;
+    --border-color: #E0E0E0;
+    --input-bg: #FAFAFA;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F9FAFB;
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.calculator-card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+
+/* Language Switch */
+.lang-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.lang-opt {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.lang-opt:hover {
+    color: var(--primary-color);
+}
+
+.lang-opt.active {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.divider {
+    color: var(--border-color);
+    font-size: 12px;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* --- Fixed Toggle Switch --- */
+.toggle-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-switch-wrapper {
+    position: relative;
+    width: 140px;
+    height: 36px;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-label-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.toggle-text {
+    flex: 1;
+    z-index: 2;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.3s;
+    user-select: none;
+    line-height: 34px;
+    /* vertically center text */
+}
+
+/* Slider element */
+.toggle-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 66px;
+    height: 30px;
+    background-color: var(--primary-color);
+    border-radius: 16px;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(229, 57, 53, 0.3);
+    z-index: 1;
+}
+
+/* Checked State Logic */
+.toggle-checkbox:checked+.toggle-label-container .toggle-slider {
+    transform: translateX(68px);
+    /* 140 - 2 (left) - 2 (right) - 66 (width) = 70? wait. total 140. width 66. gap 2. 2+66+X+2=140. X=70. transform should be around 70px. Let's use left:2px and move it 68px. 2+68 = 70. Center is 70? 140/2 = 70. 70-33=37. 
+    Let's verify. Total width 140. Border 1px on container is outside or inside? standard is border-box.
+    Inner width approx 138.
+    Slider 66.
+    Left 2. Right space = 138 - 2 - 66 = 70.
+    So transformX 70px would put it at 72px left. 72 + 66 = 138. Correct.
+    So transform: translateX(70px);
+    */
+    transform: translateX(70px);
+}
+
+.toggle-checkbox:not(:checked)+.toggle-label-container .monthly {
+    color: white;
+}
+
+.toggle-checkbox:checked+.toggle-label-container .yearly {
+    color: white;
+}
+
+
+/* Input Groups */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group.horizontal {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group.horizontal label {
+    margin-bottom: 0;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.unit {
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: none;
+    color: #9E9E9E;
+}
+
+.input-group input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
+}
+
+/* --- Fixed Number Input (Dependents) --- */
+.number-input {
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 4px;
+    width: 160px;
+    /* Increased slightly */
+}
+
+.number-input button {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: white;
+    color: var(--text-primary);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+    flex-shrink: 0;
+    /* Prevent shrinking */
+}
+
+.number-input button:hover {
+    background: #EEEEEE;
+    border-color: #E0E0E0;
+}
+
+.number-input input {
+    flex: 1;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    outline: none;
+    appearance: none;
+    /* ensure min width */
+    min-width: 40px;
+}
+
+/* Hide arrows */
+.number-input input::-webkit-outer-spin-button,
+.number-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Results */
+.result-section {
+    margin-top: 10px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-row .label {
+    margin-bottom: 0;
+    font-size: 15px;
+}
+
+.result-row .value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.result-row.tax .value {
+    color: var(--primary-color);
+}
+
+.result-row.net {
+    margin-top: 8px;
+    padding: 16px;
+    background: #FFF5F5;
+    border-radius: 12px;
+}
+
+.result-row.net .label {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.result-row.net .value {
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+/* Calculation Details */
+.calculation-details {
+    margin-top: 20px;
+    background: var(--input-bg);
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.detail-row.highlight {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color);
+}
+
+/* Bracket breakdown */
+.bracket-breakdown {
+    margin-top: 16px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+}
+
+.bracket-table {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bracket-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 4px 0;
+    border-bottom: 1px dashed #EEEEEE;
+    align-items: center;
+}
+
+.bracket-row:last-child {
+    border-bottom: none;
+}
+
+.bracket-row span:nth-child(2) {
+    text-align: center;
+}
+
+.bracket-row span:nth-child(3) {
+    text-align: right;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.bracket-row.header {
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

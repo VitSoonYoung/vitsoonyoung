@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Thuế TNCN (2026)</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="calculator-card">
+            <header>
+                <div class="lang-switch">
+                    <span class="lang-opt active" data-lang="vi">VI</span>
+                    <span class="divider">|</span>
+                    <span class="lang-opt" data-lang="en">EN</span>
+                </div>
+                <h1 data-i18n="title">Tính Thuế TNCN Việt Nam</h1>
+                <p class="subtitle" data-i18n="subtitle">Áp dụng từ 01/07/2026</p>
+            </header>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="grossIncome"><span data-i18n="gross_income">Tổng thu nhập</span> <span
+                            class="unit">(VNĐ)</span></label>
+                    <input type="text" id="grossIncome" placeholder="0" value="1.000.000.000" autocomplete="off">
+                </div>
+
+                <div class="toggle-group">
+                    <span class="label" data-i18n="tax_period">KỲ TÍNH THUẾ</span>
+                    <div class="toggle-switch-wrapper">
+                        <input type="checkbox" id="periodToggle" class="toggle-checkbox" checked>
+                        <label for="periodToggle" class="toggle-label-container">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-text monthly" data-i18n="month">Tháng</span>
+                            <span class="toggle-text yearly" data-i18n="year">Năm</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group horizontal">
+                    <label for="dependents" data-i18n="dependents">Số người phụ thuộc</label>
+                    <div class="number-input">
+                        <button class="btn-decrement">-</button>
+                        <input type="number" id="dependents" value="0" min="0">
+                        <button class="btn-increment">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <div class="result-row net">
+                    <span class="label" data-i18n="net_income">Thu nhập thực nhận</span>
+                    <span class="value" id="netIncome">0</span>
+                </div>
+            </div>
+
+            <!-- Details always visible now -->
+            <div class="calculation-details" id="detailsPanel">
+                <div class="detail-row">
+                    <span data-i18n="personal_deduction">Giảm trừ bản thân:</span>
+                    <span id="personalDeduction">0</span>
+                </div>
+                <div class="detail-row">
+                    <span data-i18n="dependent_deduction">Giảm trừ người phụ thuộc:</span>
+                    <span id="dependentDeduction">0</span>
+                </div>
+                <div class="detail-row highlight">
+                    <span data-i18n="taxable_income">Thu nhập tính thuế:</span>
+                    <span id="taxableIncome">0</span>
+                </div>
+
+                <div class="bracket-breakdown" id="bracketBreakdown">
+                    <!-- Brackets injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
